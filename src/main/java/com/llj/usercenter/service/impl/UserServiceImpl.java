@@ -1,7 +1,11 @@
 package com.llj.usercenter.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.extra.qrcode.QrCodeUtil;
+import cn.hutool.extra.qrcode.QrConfig;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.llj.usercenter.mapper.UserMapper;
 import com.llj.usercenter.model.domain.User;
 import com.llj.usercenter.service.UserService;
@@ -12,6 +16,8 @@ import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -115,6 +121,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         httpServletRequest.getSession().setAttribute(USER_LOGIN_STATE,safetyUser);
         //返回用户信息
         return safetyUser;
+    }
+
+    @Override
+    public int userLogout(HttpServletRequest httpServletRequest) {
+        httpServletRequest.getSession().removeAttribute(USER_LOGIN_STATE);
+        return 1;
     }
 
 

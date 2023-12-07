@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,6 +55,14 @@ public class UserController {
             return null;
         }
         return userService.userLogin(userAccount, userPassword, request);
+    }
+
+    @PostMapping("/logout")
+    public Integer userLogout(HttpServletRequest httpServletRequest){
+        if (httpServletRequest == null){
+            return null;
+        }
+        return userService.userLogout(httpServletRequest);
     }
 
     @GetMapping("/current")
