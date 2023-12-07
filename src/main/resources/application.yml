@@ -9,6 +9,14 @@ spring:
   # session失效时间 单位 s
   session:
     timeout: 86400
+  # rabbitmq服务器相关配置
+  rabbitmq:
+    host: 101.43.237.234
+    port: 5672
+    username: llj
+    password: 123456
+    # 可以不写
+    #virtual-host: /
 server:
   port: 8080
   servlet:
