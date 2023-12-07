@@ -104,6 +104,11 @@ public class UserController {
     }
 
 
+    @GetMapping("/getImage")
+    public BufferedImage getImage(@RequestParam String content, @RequestParam int weight, @RequestParam int height){
+        return userService.getQrCode(content, weight, height);
+    }
+
     /**
      * 是否为管理员
      * @param request 请求

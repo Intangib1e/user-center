@@ -4,6 +4,7 @@ import com.llj.usercenter.model.domain.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.awt.image.BufferedImage;
 
 /**
  * @author liulujie
@@ -25,10 +26,18 @@ public interface UserService extends IService<User> {
      * 用户登录
      * @param userAccount 用户账户
      * @param userPassword 用户密码
-     * @param httpServletRequest
+     * @param httpServletRequest 请求体
      * @return 用户信息（脱敏）
      */
     User userLogin(String userAccount, String userPassword, HttpServletRequest httpServletRequest);
+
+    /**
+     * 用户登出
+     *
+     * @param httpServletRequest 请求体
+     * @return
+     */
+    int userLogout(HttpServletRequest httpServletRequest);
 
     /**
      * 用户信息脱敏
@@ -36,4 +45,6 @@ public interface UserService extends IService<User> {
      * @return
      */
     User getSafetyUser(User originUser);
+
+    BufferedImage getQrCode(String content, int width, int height);
 }

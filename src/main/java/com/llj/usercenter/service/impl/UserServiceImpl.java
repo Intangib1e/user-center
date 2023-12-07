@@ -156,6 +156,45 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return safetyUser;
     }
 
+
+    /**
+     * 根据内容 获取二维码
+     * @param content 内容
+     * @return
+     */
+    @Override
+    public BufferedImage getQrCode(String content, int width, int height) {
+
+        //二维码设置
+        QrConfig config = getConfig(width, height);
+        //生成指定url对应的二维码到文件，宽和高都是300像素
+        BufferedImage bufferedImage = QrCodeUtil.generate(
+                content,
+                config);
+        // 插入图片
+        return bufferedImage;
+    }
+
+    /**
+     * 二维码基础设置
+     * @param width 宽 300
+     * @param height 长 300
+     * @return
+     */
+    public static QrConfig getConfig(int width, int height){
+        //300,300
+        QrConfig config = new QrConfig(width, height);
+        // 设置边距，既二维码和背景之间的边距
+        config.setMargin(2);
+        // 设置前景色，既二维码颜色（青色）
+        config.setForeColor(Color.BLACK);
+        // 设置背景色（灰色）
+        config.setBackColor(Color.WHITE);
+        // 高纠错级别 :像素块小，允许遮挡一定范围，但是像素块更密集
+        config.setErrorCorrection(ErrorCorrectionLevel.H);
+        return config;
+    }
+
 }
 
 
