@@ -3,9 +3,9 @@ spring:
     name: User-Center
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://101.43.237.234:3306/arc
+    url: jdbc:mysql://101.43.237.234:3306/db1
     username: root
-    password: 123456789
+    password: sisiwoaini
   # session失效时间 单位 s
   session:
     timeout: 86400
