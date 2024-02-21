@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan(value = "com.llj.usercenter.mapper")
-@EnableGracefulResponse// 开启统一结果返回
+//@EnableGracefulResponse// 开启统一结果返回
 public class UserCenterApplication {
 
     public static void main(String[] args) {
