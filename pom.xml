@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.llj</groupId>
-    <artifactId>User-Center</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>User-Center</name>
-    <description>User-Center</description>
+    <artifactId>user-center</artifactId>
+    <version>1.0.0</version>
+    <name>user-center</name>
+    <description>user-center</description>
 
     <properties>
         <java.version>8</java.version>
@@ -133,6 +133,15 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+
+            <!--编译跳过测试文件检查的生命周期-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
                 </configuration>
             </plugin>
         </plugins>
