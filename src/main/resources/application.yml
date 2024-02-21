@@ -11,7 +11,8 @@ spring:
     timeout: 86400
   # rabbitmq服务器相关配置
   rabbitmq:
-    host: 101.43.237.234
+    # 腾讯云公网IP：101.43.237.234 打包需换成内网IP或者127.0.0.1
+    host: 10.0.8.4
     port: 5672
     username: llj
     password: 123456
