@@ -2,8 +2,8 @@ package com.llj.usercenter.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.llj.usercenter.model.domain.User;
-import com.llj.usercenter.model.domain.request.UserLoginRequest;
-import com.llj.usercenter.model.domain.request.UserRegisterRequest;
+import com.llj.usercenter.model.request.UserLoginRequest;
+import com.llj.usercenter.model.request.UserRegisterRequest;
 import com.llj.usercenter.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
