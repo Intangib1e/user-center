@@ -1,11 +1,12 @@
 package com.llj.usercenter.service.impl;
 
-import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.extra.qrcode.QrCodeUtil;
 import cn.hutool.extra.qrcode.QrConfig;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.llj.usercenter.common.ResultCodeEnum;
+import com.llj.usercenter.exception.BusinessException;
 import com.llj.usercenter.mapper.UserMapper;
 import com.llj.usercenter.model.domain.User;
 import com.llj.usercenter.service.UserService;
@@ -41,33 +42,43 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private static final String SALT = "arc";
 
     @Override
-    public long userRegister(String userAccount, String userPassword, String checkPassword) {
+    public long userRegister(String userAccount, String userPassword, String checkPassword, String planetCode) {
         //1-校验
-        if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword)) {
-            return -1;
+        if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword, planetCode)) {
+            throw new BusinessException(ResultCodeEnum.ARGUMENT_VALID_ERROR, "参数为空");
         }
         if (userAccount.length() < 4) {
-            return -1;
+            throw new BusinessException(ResultCodeEnum.ARGUMENT_VALID_ERROR, "账号长度过短");
         }
         if (userPassword.length() < 8 || checkPassword.length() < 8) {
-            return -1;
+            throw new BusinessException(ResultCodeEnum.ARGUMENT_VALID_ERROR, "密码长度不够");
+        }
+        if (planetCode.length() > 5) {
+            throw new BusinessException(ResultCodeEnum.ARGUMENT_VALID_ERROR, "邀请码长度过长");
         }
         //账户不能包涵特殊字符
         String validPattern = "[ _`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]|\n|\r|\t";
         Matcher matcher = Pattern.compile(validPattern).matcher(userAccount);
         if (matcher.find()) {
-            return -1;
+            throw new BusinessException(ResultCodeEnum.ARGUMENT_VALID_ERROR, "账号不能包涵特殊字符");
         }
         //密码和校验密码相同
         if (!userPassword.equals(checkPassword)) {
-            return -1;
+            throw new BusinessException(ResultCodeEnum.ARGUMENT_VALID_ERROR, "密码和校验密码不同");
         }
         //账户不能重复
-        QueryWrapper<User> wrapper = new QueryWrapper();
-        wrapper.eq("userAccount", userAccount);
-        int count = this.count(wrapper);
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("userAccount", userAccount);
+        int count = this.count(queryWrapper);
         if (count > 0) {
-            return -1;
+            throw new BusinessException(ResultCodeEnum.ARGUMENT_VALID_ERROR, "账户重复");
+        }
+        //邀请码不能重复
+        queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("planetCode", planetCode);
+        count = this.count(queryWrapper);
+        if (count > 0) {
+            throw new BusinessException(ResultCodeEnum.ARGUMENT_VALID_ERROR, "邀请码重复");
         }
 
         //2-加密
@@ -77,9 +88,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = new User();
         user.setUserAccount(userAccount);
         user.setUserPassword(encryptPassword);
+        user.setPlanetCode(planetCode);
         boolean result = this.save(user);
         if (!result) {
-            return -1;
+            throw new BusinessException(ResultCodeEnum.ARGUMENT_VALID_ERROR, "用户插入失败");
         }
         return user.getId();
     }
@@ -153,6 +165,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         safetyUser.setUserStatus(originUser.getUserStatus());
         safetyUser.setCreateTime(originUser.getCreateTime());
         safetyUser.setIsDeleted(originUser.getIsDeleted());
+        safetyUser.setPlanetCode(originUser.getPlanetCode());
         return safetyUser;
     }
 

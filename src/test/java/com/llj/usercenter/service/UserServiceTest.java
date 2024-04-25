@@ -1,7 +1,4 @@
 package com.llj.usercenter.service;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 import com.llj.usercenter.model.domain.User;
 import org.junit.jupiter.api.Assertions;
@@ -9,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class UserServiceTest {
@@ -38,7 +33,8 @@ class UserServiceTest {
         String userAccount = "arc0316";
         String userPassword = "12345678";
         String checkPassword = "12345678";
-        long result = userService.userRegister(userAccount, userPassword, checkPassword);
+        String planetCode = "12345678";
+        long result = userService.userRegister(userAccount, userPassword, checkPassword, planetCode);
         Assertions.assertEquals(-1,result);
         System.out.println(result);
     }

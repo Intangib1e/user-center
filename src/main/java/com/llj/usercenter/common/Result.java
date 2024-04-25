@@ -2,13 +2,16 @@ package com.llj.usercenter.common;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 全局统一返回结果类
  *
  */
 @Data
-public class Result<T> {
+public class Result<T> implements Serializable {
 
+    private static final long serialVersionUID = -8874763201329028232L;
     //返回码
     private Integer code;
 
@@ -17,6 +20,9 @@ public class Result<T> {
 
     //返回数据
     private T data;
+
+    //返回详细信息
+    private String description;
 
     public Result(){}
 
@@ -28,10 +34,11 @@ public class Result<T> {
         return result;
     }
 
-    private static <T> Result<T> build(Integer code, String message) {
+    private static <T> Result<T> build(Integer code, String message, String description) {
         Result<T> result = new Result<T>();
         result.setCode(code);
         result.setMessage(message);
+        result.setDescription(description);
         return result;
     }
 
@@ -39,6 +46,14 @@ public class Result<T> {
         Result<T> result = build(body);
         result.setCode(code);
         result.setMessage(message);
+        return result;
+    }
+
+    public static <T> Result<T> build(T body, Integer code, String message, String description) {
+        Result<T> result = build(body);
+        result.setCode(code);
+        result.setMessage(message);
+        result.setDescription(description);
         return result;
     }
 
@@ -79,8 +94,8 @@ public class Result<T> {
         return build(data, ResultCodeEnum.FAIL);
     }
 
-    public static<T> Result<T> fail(Integer code, String message) {
-        return build(code,message);
+    public static<T> Result<T> fail(Integer code, String message, String description) {
+        return build(code, message, description);
     }
 
 

@@ -1,7 +1,7 @@
 package com.llj.usercenter.service;
 
-import com.llj.usercenter.model.domain.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.llj.usercenter.model.domain.User;
 
 import javax.servlet.http.HttpServletRequest;
 import java.awt.image.BufferedImage;
@@ -15,12 +15,14 @@ public interface UserService extends IService<User> {
 
     /**
      * 用户注册
+     *
      * @param userAccount   用户账户
      * @param userPassword  用户密码
      * @param checkPassword 校验密码
+     * @param planetCode 登陆邀请码
      * @return long
      */
-    long userRegister(String userAccount, String userPassword, String checkPassword);
+    long userRegister(String userAccount, String userPassword, String checkPassword, String planetCode);
 
     /**
      * 用户登录

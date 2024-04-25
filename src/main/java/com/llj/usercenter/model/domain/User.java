@@ -1,11 +1,10 @@
 package com.llj.usercenter.model.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
-
-import lombok.Data;
 
 /**
  *
@@ -21,7 +20,7 @@ public class User implements Serializable {
     private Long id;
 
     /**
-     * 昵称
+     * 用户名
      */
     private String username;
 
@@ -56,7 +55,7 @@ public class User implements Serializable {
     private String phone;
 
     /**
-     * 是否有效0正常1无效
+     * 用户状态
      */
     private Integer userStatus;
 
@@ -66,12 +65,12 @@ public class User implements Serializable {
     private Date createTime;
 
     /**
-     * 更新时间
+     * 修改时间
      */
     private Date updateTime;
 
     /**
-     * 是否删除
+     * 是否逻辑删除
      */
     @TableLogic
     private Integer isDeleted;
@@ -80,6 +79,11 @@ public class User implements Serializable {
      * 用户角色 0-普通 1-管理员
      */
     private Integer userRole;
+
+    /**
+     * 编号
+     */
+    private String planetCode;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -108,7 +112,8 @@ public class User implements Serializable {
                 && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
                 && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
                 && (this.getIsDeleted() == null ? other.getIsDeleted() == null : this.getIsDeleted().equals(other.getIsDeleted()))
-                && (this.getUserRole() == null ? other.getUserRole() == null : this.getUserRole().equals(other.getUserRole()));
+                && (this.getUserRole() == null ? other.getUserRole() == null : this.getUserRole().equals(other.getUserRole()))
+                && (this.getPlanetCode() == null ? other.getPlanetCode() == null : this.getPlanetCode().equals(other.getPlanetCode()));
     }
 
     @Override
@@ -128,6 +133,7 @@ public class User implements Serializable {
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         result = prime * result + ((getIsDeleted() == null) ? 0 : getIsDeleted().hashCode());
         result = prime * result + ((getUserRole() == null) ? 0 : getUserRole().hashCode());
+        result = prime * result + ((getPlanetCode() == null) ? 0 : getPlanetCode().hashCode());
         return result;
     }
 
@@ -150,9 +156,9 @@ public class User implements Serializable {
         sb.append(", updateTime=").append(updateTime);
         sb.append(", isDeleted=").append(isDeleted);
         sb.append(", userRole=").append(userRole);
+        sb.append(", planetCode=").append(planetCode);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
     }
 }
-
