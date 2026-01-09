@@ -89,6 +89,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setUserAccount(userAccount);
         user.setUserPassword(encryptPassword);
         user.setPlanetCode(planetCode);
+        user.setUserRole(0);// 角色默认给普通-0
+        user.setUsername(userAccount);// 默认给账户名
         boolean result = this.save(user);
         if (!result) {
             throw new BusinessException(ResultCodeEnum.ARGUMENT_VALID_ERROR, "用户插入失败");

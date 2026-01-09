@@ -3,17 +3,17 @@ spring:
     name: User-Center
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://101.43.237.234:3306/db1
+    url: jdbc:mysql://82.156.240.96:3306/user-center
     username: root
-    password: sisiwoaini
+    password: 123456789
   # session失效时间 单位 s
   session:
     timeout: 86400
   # rabbitmq服务器相关配置
   rabbitmq:
     # 腾讯云公网IP：101.43.237.234 打包需换成内网IP或者127.0.0.1
-    host: 127.0.0.1
-#    host: 101.43.237.234
+#    host: 127.0.0.1
+    host: 101.43.237.234
     port: 5672
     username: llj
     password: 123456
